@@ -10,20 +10,27 @@ fcs = arcpy.ListFeatureClasses()
 def process_NZAA():
     print "Empty process"
 def process_NZAA_1():
-    print "process NZAA_1 data"
+    print "process " + fc
+    print "Delete features from " + fc
     arcpy.DeleteFeatures_management(fc)
+    print "Append features from " + fc
     arcpy.Append_management(cliveDC + "NZAA", fc, "NO_TEST")
+    print "Complete"
 def process_NZAA_2():
-    print "process NZAA_2 data"
+    print "process " + fc
+    print "Delete features from " + fc
     arcpy.DeleteFeatures_management(fc)
+    print "Append features from " + fc
     arcpy.Append_management(cliveDC + "NZAA", fc, "NO_TEST")
+    print "Complete"
+    
+# data dictionary for feature class : process
+options = {'NZAA_1' : process_NZAA_1,
+            'NZAA_2' : process_NZAA_2
+          }
 
 # process each feature class in list
 for fc in fcs: 
-    # data dictionary for feature class : process
-    options = {'NZAA_1' : process_NZAA_1,
-               'NZAA_2' : process_NZAA_2
-               }
     # run process from dd option
     if fc in options:
         options[fc]()
